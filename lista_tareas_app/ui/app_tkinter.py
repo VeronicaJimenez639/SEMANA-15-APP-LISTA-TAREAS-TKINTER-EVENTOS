@@ -209,3 +209,20 @@ class AppTkinter:
         else:
             messagebox.showerror("Error", "No se pudo desmarcar la tarea seleccionada.")
 
+    def eliminar_tarea(self):
+        """
+        Elimina la tarea seleccionada del servicio y de la interfaz.
+        """
+        identificador_seleccionado = self.obtener_identificador_seleccionado()
+
+        if identificador_seleccionado is None:
+            messagebox.showwarning("Aviso", "Seleccione una tarea para eliminarla.")
+            return
+
+        fue_eliminada = self.tarea_servicio.eliminar_tarea(identificador_seleccionado)
+
+        if fue_eliminada:
+            self.treeview_tareas.delete(str(identificador_seleccionado))
+        else:
+            messagebox.showerror("Error", "No se pudo eliminar la tarea seleccionada.")
+
