@@ -49,4 +49,17 @@ class TareaServicio:
 
         return False
 
+    def desmarcar_tarea(self, identificador: int) -> bool:
+        """
+        Cambia una tarea completada nuevamente a estado pendiente.
+        Retorna True si la encontró o False si no existe.
+        """
+        tarea_encontrada = self.buscar_tarea_por_identificador(identificador)
+
+        if tarea_encontrada is not None:
+            tarea_encontrada.estado_completado = False
+            return True
+
+        return False
+
     
