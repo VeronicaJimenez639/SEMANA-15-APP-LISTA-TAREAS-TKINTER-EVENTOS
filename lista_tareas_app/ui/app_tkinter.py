@@ -127,3 +127,36 @@ class AppTkinter:
             self.entry_descripcion.focus()
         except ValueError as error:
             messagebox.showerror("Error", str(error))
+
+    def insertar_tarea_en_treeview(self, tarea):
+        """
+        Inserta una tarea en el Treeview.
+        El identificador se guarda como iid para poder ubicar la tarea después.
+        """
+        estado_texto = "Pendiente"
+        etiquetas = ("pendiente",)
+
+        if tarea.estado_completado:
+            estado_texto = "[Hecho]"
+            etiquetas = ("completada",)
+
+        self.treeview_tareas.insert(
+            "",
+            "end",
+            iid=str(tarea.identificador),
+            values=(tarea.descripcion, estado_texto),
+            tags=etiquetas
+        )
+
+    def obtener_identificador_seleccionado(self):
+        """
+        Obtiene el identificador de la tarea seleccionada.
+        Retorna None si no hay ninguna seleccionada.
+        """
+        seleccion = self.treeview_tareas.selection()
+
+        if not seleccion:
+            return None
+
+        return int(seleccion[0])
+    
