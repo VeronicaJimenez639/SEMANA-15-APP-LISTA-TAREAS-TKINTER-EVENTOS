@@ -109,3 +109,21 @@ class AppTkinter:
         # Permite marcar una tarea como completada con doble clic.
         self.treeview_tareas.bind("<Double-1>", self.evento_marcar_con_doble_clic)
 
+    def anadir_tarea(self):
+        """
+        Toma el texto escrito por el usuario y crea una nueva tarea.
+        """
+        descripcion_ingresada = self.descripcion_var.get().strip()
+
+        if not descripcion_ingresada:
+            messagebox.showwarning("Aviso", "Debe escribir una descripción para la tarea.")
+            self.entry_descripcion.focus()
+            return
+
+        try:
+            tarea_nueva = self.tarea_servicio.agregar_tarea(descripcion_ingresada)
+            self.insertar_tarea_en_treeview(tarea_nueva)
+            self.descripcion_var.set("")
+            self.entry_descripcion.focus()
+        except ValueError as error:
+            messagebox.showerror("Error", str(error))
