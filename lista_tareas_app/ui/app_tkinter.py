@@ -94,3 +94,8 @@ class AppTkinter:
         self.treeview_tareas.column("estado", width=180, anchor="center")
         self.treeview_tareas.pack(fill="both", expand=True)
 
+        # Estas etiquetas visuales permiten diferenciar tareas pendientes y completadas.
+        # También se define el color del texto para que se vea con más claridad.
+        self.treeview_tareas.tag_configure("pendiente", background="#FFF9C4", foreground="black")
+        self.treeview_tareas.tag_configure("completada", background="#C8E6C9", foreground="black")
+
