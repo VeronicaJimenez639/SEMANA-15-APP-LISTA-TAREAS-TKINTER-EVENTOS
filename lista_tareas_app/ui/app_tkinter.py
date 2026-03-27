@@ -99,3 +99,13 @@ class AppTkinter:
         self.treeview_tareas.tag_configure("pendiente", background="#FFF9C4", foreground="black")
         self.treeview_tareas.tag_configure("completada", background="#C8E6C9", foreground="black")
 
+    def configurar_eventos(self):
+        """
+        Registra los eventos de teclado y ratón.
+        """
+        # Permite agregar una tarea al presionar Enter en el campo de texto.
+        self.entry_descripcion.bind("<Return>", self.evento_anadir_con_enter)
+
+        # Permite marcar una tarea como completada con doble clic.
+        self.treeview_tareas.bind("<Double-1>", self.evento_marcar_con_doble_clic)
+
