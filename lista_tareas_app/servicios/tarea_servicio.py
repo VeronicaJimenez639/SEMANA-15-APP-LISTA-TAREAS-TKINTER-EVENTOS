@@ -35,5 +35,18 @@ class TareaServicio:
             if tarea.identificador == identificador:
                 return tarea
         return None
- 
+
+    def marcar_tarea_completada(self, identificador: int) -> bool:
+        """
+        Marca una tarea como completada.
+        Retorna True si la encontró o False si no existe.
+        """
+        tarea_encontrada = self.buscar_tarea_por_identificador(identificador)
+
+        if tarea_encontrada is not None:
+            tarea_encontrada.estado_completado = True
+            return True
+
+        return False
+
     
