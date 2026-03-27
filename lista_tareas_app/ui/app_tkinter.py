@@ -160,3 +160,52 @@ class AppTkinter:
 
         return int(seleccion[0])
     
+    def marcar_tarea_completada(self):
+        """
+        Marca como completada la tarea seleccionada y actualiza su aspecto visual.
+        Cuando una tarea se completa, la fila cambia a verde bajito.
+        Luego se quita la selección para que el color azul del Treeview no tape el color verde.
+        """
+        identificador_seleccionado = self.obtener_identificador_seleccionado()
+
+        if identificador_seleccionado is None:
+            messagebox.showwarning("Aviso", "Seleccione una tarea para marcarla como completada.")
+            return
+
+        fue_marcada = self.tarea_servicio.marcar_tarea_completada(identificador_seleccionado)
+
+        if fue_marcada:
+            tarea_encontrada = self.tarea_servicio.buscar_tarea_por_identificador(identificador_seleccionado)
+            self.treeview_tareas.item(
+                str(identificador_seleccionado),
+                values=(tarea_encontrada.descripcion, "[Hecho]"),
+                tags=("completada",)
+            )
+            self.treeview_tareas.selection_remove(self.treeview_tareas.selection())
+        else:
+            messagebox.showerror("Error", "No se pudo marcar la tarea seleccionada.")
+
+    def desmarcar_tarea(self):
+        """
+        Devuelve una tarea completada al estado pendiente y actualiza su color.
+        Luego se quita la selección para que vuelva a verse el amarillo.
+        """
+        identificador_seleccionado = self.obtener_identificador_seleccionado()
+
+        if identificador_seleccionado is None:
+            messagebox.showwarning("Aviso", "Seleccione una tarea para desmarcarla.")
+            return
+
+        fue_desmarcada = self.tarea_servicio.desmarcar_tarea(identificador_seleccionado)
+
+        if fue_desmarcada:
+            tarea_encontrada = self.tarea_servicio.buscar_tarea_por_identificador(identificador_seleccionado)
+            self.treeview_tareas.item(
+                str(identificador_seleccionado),
+                values=(tarea_encontrada.descripcion, "Pendiente"),
+                tags=("pendiente",)
+            )
+            self.treeview_tareas.selection_remove(self.treeview_tareas.selection())
+        else:
+            messagebox.showerror("Error", "No se pudo desmarcar la tarea seleccionada.")
+
