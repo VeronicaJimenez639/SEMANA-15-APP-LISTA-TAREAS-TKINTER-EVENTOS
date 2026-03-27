@@ -62,4 +62,15 @@ class TareaServicio:
 
         return False
 
-    
+    def eliminar_tarea(self, identificador: int) -> bool:
+        """
+        Elimina una tarea por su identificador.
+        Retorna True si la eliminó o False si no existe.
+        """
+        tarea_encontrada = self.buscar_tarea_por_identificador(identificador)
+
+        if tarea_encontrada is not None:
+            self._lista_tareas.remove(tarea_encontrada)
+            return True
+
+        return False    
