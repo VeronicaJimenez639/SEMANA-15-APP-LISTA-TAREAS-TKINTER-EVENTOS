@@ -226,3 +226,20 @@ class AppTkinter:
         else:
             messagebox.showerror("Error", "No se pudo eliminar la tarea seleccionada.")
 
+    def evento_anadir_con_enter(self, event):
+        """
+        Manejador del evento Enter.
+        Reutiliza el mismo método del botón para evitar repetir lógica.
+        """
+        self.anadir_tarea()
+
+    def evento_marcar_con_doble_clic(self, event):
+        """
+        Manejador del doble clic sobre una tarea.
+        Detecta la fila seleccionada y luego marca esa tarea como completada.
+        """
+        item_seleccionado = self.treeview_tareas.identify_row(event.y)
+
+        if item_seleccionado:
+            self.treeview_tareas.selection_set(item_seleccionado)
+            self.marcar_tarea_completada()
