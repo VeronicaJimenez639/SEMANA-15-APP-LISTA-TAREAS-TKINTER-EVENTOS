@@ -20,3 +20,20 @@ class TareaServicio:
         self._siguiente_identificador += 1
         return nueva_tarea
     
+    def listar_tareas(self) -> list:
+        """
+        Retorna una copia de la lista de tareas.
+        """
+        return self._lista_tareas.copy()
+
+    def buscar_tarea_por_identificador(self, identificador: int):
+        """
+        Busca una tarea por su identificador.
+        Retorna la tarea si existe o None si no se encuentra.
+        """
+        for tarea in self._lista_tareas:
+            if tarea.identificador == identificador:
+                return tarea
+        return None
+ 
+    
